@@ -1,18 +1,13 @@
 #include<iostream>
 #include <cstdio>
 #include<cmath>
-using namespace std;//用斐波那契数列a[n+2]=a[n+1]+a[n] 
-int main()
+using namespace std;
+int main ()
 {
-	double f[50];
-	int n,i;
-	f[0]=0;
-	f[1]=1;
-	f[2]=1;
-	cin>>n;
-	for(i=3;i<=n;i++){
-		f[i]=f[i-1]+f[i-2];
-	}
-	printf("%.2lf",f[n]);
+	int n;
+	double f;
+	cin>> n;
+	f=(pow((1+sqrt(5))/2,n)-pow((1-sqrt(5))/2,n))/sqrt(5);	//pow姹傚嚑娆℃柟
+	printf("%.2lf",f);
 	return 0;
 }
