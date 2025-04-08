@@ -1,0 +1,36 @@
+#include <iostream>
+#include <cstdio>
+using namespace std;
+
+//堆区的数据由程序员管理开辟和释放，若程序员不释放，程序结束时系统会自动释放
+//c++在堆区开辟内存使用new关键字，释放使用delete关键字
+
+//1、new的基本语法
+int* func() {
+	int* p = new int(10);//利用new关键字，可以在堆区开辟内存地址，用指针接收
+	return p;	//返回堆区的地址
+}
+void test01() {
+	int* p = func();
+	cout << *p << endl;	//输出堆区的值
+	cout << *p << endl;	
+	delete p;	//释放堆区的内存
+	p = nullptr;	//将指针置空
+	//cout << *p << endl;	//输出堆区的值
+}
+//2、new开辟数组
+void test02() {
+	int* arr = new int[10];	//开辟一个数组10个值
+	for (int i = 0; i < 10; i++) {
+		arr[i] = i + 100;	//给数组赋值 100~109
+	}
+	for (int i = 0; i < 10; i++) {
+		cout << arr[i] << " ";	//输出数组的值
+	}
+	delete[] arr;	//释放数组
+}
+int main() {
+	test01();
+	test02();
+	return 0;
+}
