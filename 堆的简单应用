@@ -1,0 +1,16 @@
+#include <iostream>
+#include <cstdio>
+using namespace std;
+
+//堆区的数据由程序员管理开辟和释放，若程序员不释放，程序结束时系统会自动释放
+//c++在堆区开辟内存使用new关键字，释放使用delete关键字
+int* func() {
+	int* p = new int(10);//利用new关键字，可以在堆区开辟内存地址，用指针接收
+	return p;	//返回堆区的地址
+}
+int main() {
+	int* p = func();
+
+	cout << *p << endl;	
+	return 0;
+}
