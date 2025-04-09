@@ -1,0 +1,30 @@
+#include <iostream>
+#include <cstdio>
+using namespace std;
+class X { 
+	public:
+		X(int num) {
+			a = num;
+			cout << "create a X object with " << a << endl;
+		}
+		X(X& other) {	//拷贝构造函数
+			a = other.a;
+			cout << "create a X object from other X object" << endl;
+		}
+		~X() {
+			cout << "erase a object" << endl;
+		}
+private:
+	int a;
+
+};
+X f(X x) {	//非成员函数f，按值传递对象，会调用拷贝构造函数
+	cout << "call a func with para X object" << endl;
+	return x;
+}
+int main() 
+{	 
+	X a(1);
+	a = f(a);
+	return 0;
+}
