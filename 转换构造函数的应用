@@ -1,0 +1,49 @@
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+using namespace std;
+class Student {		//一定要先定义Student类，后定义Teacher类
+	int num;
+	string name;
+	string sex;
+	double score;
+public:
+	Student(int nu, string na, string s, double sc) :num(nu), name(na), sex(s), score(sc){} // Constructor
+	int getData_num() const { return num; } // Getter for num
+	string getData_name() const { return name; } // Getter for name
+	string getData_sex() const { return sex; }
+	double getData_score() const { return score; } // Getter for score
+};
+class Teacher {
+	int num;
+	string name;
+	string sex;
+	double pay;
+public:
+	Teacher(double p) :pay(p) {}// Teacher类独有的成员变量pay
+	//定义Teacher类的转换构造函数
+	Teacher(const Student& r)
+		:num(r.getData_num()),
+		name(r.getData_name()),
+		sex(r.getData_sex()),
+		pay(0) {}		// 初始化自己的成员变量
+	
+	int getnewnum() const { return num; } // Getter for num
+	string getnewname() const { return name; } // Getter for name
+	string getnewsex() const { return sex; }
+	void setpay(double p) { pay = p; } // Setter for pay
+	double setpay() const { return pay; } // Getter for pay
+};
+
+int main()
+{
+	Student s(20010,"Wang","m",89.5);
+	Teacher t(s);
+	t.setpay(1500);
+	cout << "student1: " << endl << "num: " << s.getData_num() << endl << "name: " << s.getData_name() <<
+		endl << "sex: " << s.getData_sex() << endl << "score: " << s.getData_score() << endl;
+	cout << endl;
+	cout << "teacher1: " << endl << "num: " << t.getnewnum() << endl << "name: " << t.getnewname() <<
+		endl << "sex: " << t.getnewsex() << endl << "pay: " << t.setpay() << endl;
+	return 0;
+}
