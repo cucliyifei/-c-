@@ -1,0 +1,40 @@
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+using namespace std;
+
+class building {
+	friend class goodGay; //好基友类是building类的友元类,可以访问私有成员
+private:
+	string bedroom;
+public:
+	string livingroom;
+	building() {
+		bedroom = "bedroom";
+		livingroom = "livingroom";
+	}
+	
+};
+class goodGay {
+public:
+	building* b;    //指针
+	goodGay() 
+	{
+		b = new building;	//new要在堆区，如果在栈区，出作用域就会被销毁(gg后就会被销毁)
+	}
+	void visit() {
+		cout << "好基友类正在访问" << b->livingroom << endl;
+		cout << "好基友类正在访问" << b->bedroom << endl;
+	}
+
+};
+
+void test02() {
+	goodGay gg;
+	gg.visit();
+}
+int main()
+{
+	test02();
+	return 0;
+}
