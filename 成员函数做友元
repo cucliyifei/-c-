@@ -1,0 +1,47 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// 定义成员函数做友元时，定义顺序非常重要，需要先声明building类（这样才能定义指针），再定义gooGay类，里面需要出现将做友元的函数
+//（这样building类里面的friend才能找到对应的函数），再定义building类，再定义goodGay成员函数
+class building;
+
+class goodGay {
+public:
+    building* b;
+    goodGay();
+    void visit();  // 只声明，不定义
+};
+
+class building {
+    // 声明特定成员函数为友元
+    friend void goodGay::visit();
+private:
+    string bedroom;
+public:
+    string livingroom;
+    building() {
+        bedroom = "bedroom";
+        livingroom = "livingroom";
+    }
+};
+
+// 现在可以定义goodGay的成员函数了
+goodGay::goodGay() {
+    b = new building;
+}
+
+void goodGay::visit() {
+    cout << "好基友类正在访问" << b->livingroom << endl;
+    cout << "好基友类正在访问" << b->bedroom << endl;  // 现在可以访问了
+}
+
+void test02() {
+    goodGay gg;
+    gg.visit();
+}
+
+int main() {
+    test02();
+    return 0;
+}
