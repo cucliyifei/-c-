@@ -1,0 +1,32 @@
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+using namespace std;
+
+class building {
+private:
+	string bedroom;
+	friend void goodGay(building* p);	//goodGay是building的好基友，可以访问building的私有成员,可以放在类中任意位置
+public:
+	string livingroom;
+	building() {
+		bedroom = "bedroom";
+		livingroom = "livingroom";
+	}
+	
+};
+//全局函数
+	void goodGay(building* p) {
+		cout << "goodGay: " << p->livingroom << endl;
+		cout << "goodGay: " << p->bedroom << endl; // 访问私有成员
+	}	
+
+void test02() {
+	building b;
+	goodGay(&b); // 直接调用全局函数
+}
+int main()
+{
+	test02();
+	return 0;
+}
