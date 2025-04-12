@@ -1,0 +1,32 @@
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+using namespace std;
+
+class Person {
+public:
+	int age;
+	Person(){}
+	Person(int age) {
+		this->age = age;
+	}
+	Person& PersonAdd_age(Person &p) {		//引用指向本身的内存，不会创建新对象，不引用就是拷贝了，返回的就不是p2了
+		this->age += p.age;
+		return *this;	//*this指向p2的本体
+	}
+};
+	
+	
+//
+void test02() {
+	Person p1(18);
+	Person p2(20);
+	//链式编程思想
+	p2.PersonAdd_age(p1).PersonAdd_age(p1).PersonAdd_age(p1);	//可以一直加	
+	cout << p2.age;
+}
+int main()
+{
+	test02();
+	return 0;
+}
