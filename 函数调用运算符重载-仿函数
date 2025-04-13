@@ -9,6 +9,7 @@ public:
 	void operator()(string test) {
 		cout << test << endl;
 	}
+	//形式很灵活
 	int operator()(int num1, int num2) {
 		return num1 + num2;
 	}
@@ -22,6 +23,9 @@ public:
 		Myprint myprint;
 		int sum = myprint(10, 20);
 		cout << "sum = " << sum << endl;
+	//如果不想创建对象
+	//类名加（）可以创建匿名函数对象，执行后立即被释放
+		cout << Myprint()(10,20) << endl;
 	}
 	int main() {
 		test01();
