@@ -1,0 +1,30 @@
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+using namespace std;
+//打印输出类
+class Myprint {
+public:
+	//重载()运算符
+	void operator()(string test) {
+		cout << test << endl;
+	}
+	int operator()(int num1, int num2) {
+		return num1 + num2;
+	}
+};
+	void test01() {
+		Myprint myprint;
+		myprint("Hello world");
+	}
+
+	void test02() {
+		Myprint myprint;
+		int sum = myprint(10, 20);
+		cout << "sum = " << sum << endl;
+	}
+	int main() {
+		test01();
+		test02();
+		return 0;
+	}
