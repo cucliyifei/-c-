@@ -1,0 +1,37 @@
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+using namespace std;
+class Person {
+public:
+	string m_name;
+	int m_age;
+	Person(string name, int age) {
+		m_name = name;
+		m_age = age;
+	}
+	bool operator==(Person& p) {
+		if (this->m_age == p.m_age && this->m_name == p.m_name) {
+			cout << "Equal" << endl;
+			return true;
+		}
+		else {
+			cout << "Not Equal" << endl;
+			return false;
+		}
+	}
+	};
+
+	void test01() {
+		Person p1("John", 25);
+		Person p2("Jane", 30);
+		if (p1 == p2) {
+			cout << "p1 and p2 are equal" << endl;
+		}
+	}
+
+	int main() {
+		test01();
+
+		return 0;
+	}
