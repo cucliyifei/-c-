@@ -1,0 +1,49 @@
+//派生类构造函数举例
+//默认情况下基类的构造函数不被继承，派生类需要定义自己的构造函数
+//定义构造函数时，只需要对本类中新增成员进行初始化
+//派生类构造函数需要给基类的构造函数传递参数
+//可以用using语句继承基类的构造函数，使之成为派生类的构造函数，但只能初始化从基类继承的成员
+//如果派生类中有与基类同名的成员变量，使用using语句继承构造函数时，基类的成员变量会被隐藏
+#include <iostream>
+#include <cstdio>
+using namespace std;
+class Base1	{	//基类，构造函数有参数
+public:
+	Base1(int i) {
+		cout << "Base1 constructor called with value: " << i << endl;
+	}
+	~Base1() {
+		cout << "Destructing Base1" << endl;
+	}
+};
+class Base2 {	//基类，构造函数有参数
+public:
+	Base2(int j) {
+		cout << "Base2 constructor called with value: " << j<< endl;
+	}
+	~Base2() {
+		cout << "Destructing Base2" << endl;
+	}
+};
+class Base3 {	//基类，构造函数无参数
+public:
+	Base3() {
+		cout << "Base3 constructor Base3* " << endl;
+	}
+	~Base3() {
+		cout << "Destructing Base3" << endl;
+	}
+};
+class Derived : public Base2, public Base1, public Base3 {	//派生类,继承
+public:
+	Derived(int a,int b,int c,int d):Base1(a),member2(d),member1(c),Base2(b){}
+	//构造次序与构造函数的执行顺数无关
+private:
+	Base1 member1;
+	Base2 member2;
+	Base3 member3;
+};
+int main() {
+	Derived obj(1, 2, 3, 4);
+	return 0;
+}
