@@ -1,0 +1,56 @@
+#include <iostream>
+#include <cstdio>
+using namespace std;
+class A {
+public:
+	void setA(int);
+	void showA()const;
+private:
+	int a;
+};
+class B {
+public:
+	void setB(int);
+	void showB()const;
+private:
+	int b;
+};
+class C : public A, private B {
+public:
+	void setC(int, int,int);
+	void showC()const;
+private:
+	int c;
+};
+void A::setA(int x) {
+	a = x;
+}
+void A::showA() const {
+	cout << "A: " << a << endl;
+}
+void B::setB(int y) {
+	b = y;
+}
+void B::showB() const {
+	cout << "B: " << b << endl;
+}
+void C::setC(int x, int y, int z) {
+	setA(x);	//派生类成员函数可以访问基类的公有成员函数
+	setB(y);
+	c = z;
+}
+void C::showC() const {
+	showA();
+	showB();
+	cout << "C: " << c << endl;
+}
+int main() {
+	C obj;
+	obj.setA(5);	
+	obj.showA();
+	obj.setC(1, 2, 3);
+	obj.showC();
+	//obj.setB(2); //错误，setB()是私有的
+	//obj.showB(); //错误，showB()是私有的
+	return 0;
+}
