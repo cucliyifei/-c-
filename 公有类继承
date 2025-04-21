@@ -1,0 +1,49 @@
+//公有继承
+#include <iostream>
+#include <cstdio>
+using namespace std;
+class Point {
+public:
+	void initPoint(float x = 0, float y = 0)
+	{
+		this->x = x;
+		this->y = y;
+	}
+	void move(float offX,float offY)
+	{
+		x += offX;y += offY;
+	}
+	float getX()const {
+		return x;
+	}
+	float getY()const {
+		return y;
+	}
+private:
+	float x, y;
+};
+class Rectangle :public Point {		//派生类定义部分
+public:
+	void initRectangle(float x1, float y1, float w, float h)
+	{
+		initPoint(x1, y1);		//可以直接调用基类的公有成员函数，但不能调用私有成员
+		this->w = w;
+		this->h = h;
+	}
+	float getH()const {
+		return h;
+	}
+	float getW()const {
+		return w;
+	}
+private:
+	float w, h;		//新增私有数据成员
+};
+int main() {
+	Rectangle rect;
+	rect.initRectangle(2, 3, 20, 10);		//设置矩形的数据
+	rect.move(3, 2);		//移动矩形位置
+	cout << "The data of rect(x,y,w,h): " << endl;
+	cout << rect.getX() << "," << rect.getY() << "," << rect.getW() << "," << rect.getH() << endl;		//输出矩形数据
+	return 0;
+}
