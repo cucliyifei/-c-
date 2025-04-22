@@ -1,0 +1,28 @@
+//当派生类与基类有相同成员时
+//若无特别限定，则通过派生类对象使用的是派生类中的同名成员
+//如果要访问基类中被隐藏的同名成员，应使用基类名和作用域操作符::来限定
+#include <iostream>
+#include <cstdio>
+using namespace std;
+class Base1 {
+public:
+	int var;
+	void fun() { cout << "Member of Base1" << endl; }
+};
+class Derived : public Base1 {
+public:
+	int var;
+	void fun() { cout << "Member of Derived" << endl; }
+};
+int main() {
+	Derived d;
+	Derived* p = &d;
+	//访问Derived类中的成员
+	d.var = 1;
+	d.fun();
+	//访问Base1类中的成员
+	d.Base1::var = 2;
+	p->Base1::fun();
+
+	return 0;
+}
