@@ -1,0 +1,82 @@
+/*设计一个Point类，表示平面中的一个点
+
+设计一个Line类，表示平面的一条线段
+
+设计一个Triangle类（三角形类），内含三条边。
+
+要求：
+
+设计三个类的相应的构造函数、复制构造函数，完成初始化和对象复制
+
+设计Triangle类的成员函数，分别完成三条边能否构成三角形的检查，三角形周长的计算
+
+*/
+#include <iostream>
+#include <cstdio>
+#include <cmath>
+using namespace std;
+class Point {
+	double x, y;
+public:
+	Point() :x(0), y(0) {}
+	Point(double a, double b) :x(a), y(b) {}
+	Point(const Point& p) :x(p.x), y(p.y) {}	//复制构造函数
+	//获取x坐标
+	double getX() {
+		return x;
+	}
+	//获取y坐标
+	double getY() {
+		return y;
+	}
+};
+class Line {
+	Point p1, p2;
+public:
+	//无参构造函数
+	Line() :p1(0, 0), p2(0, 0) {}
+	//有参构造函数，初始化
+	Line(const Point& a, const Point& b) :p1(a), p2(b) {}
+	//复制构造函数
+	Line(const Line& l) :p1(l.p1), p2(l.p2) {}	
+	//计算长度
+	double length() {
+		return sqrt(pow(p1.getX() - p2.getX(), 2) + pow(p1.getY() - p2.getY(), 2));
+
+	}
+};
+class Triangle {
+	Line side1, side2, side3;
+public:
+	//无参构造函数
+	Triangle() :side1(Point(0, 0), Point(0, 0)), side2(Point(0, 0), Point(0, 0)), side3(Point(0, 0), Point(0, 0)) {}
+	//有参构造函数
+	Triangle(const Line& a, const Line& b, const Line& c) :side1(a), side2(b), side3(c) {}
+	//复制构造函数
+	Triangle(const Triangle& t) :side1(t.side1), side2(t.side2), side3(t.side3) {}
+	//判断能否构成三角形
+	bool isTriangle() {
+		double a = side1.length();
+		double b = side2.length();
+		double c = side3.length();
+		return (a + b > c) && (a + c > b) && (b + c > a);
+	}
+	//计算周长
+	double perimeter() {
+		return side1.length() + side2.length() + side3.length();
+	}
+};
+int main() {
+	double x1, y1, x2, y2, x3, y3;
+	cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3;
+	Point p1(x1, y1), p2(x2, y2), p3(x3, y3);
+	Line l1(p1, p2), l2(p2, p3), l3(p3, p1);
+	Triangle t1(l1, l2, l3);
+	if (t1.isTriangle()) {
+		printf("%.3lf\n", t1.perimeter());
+	}
+	else {
+		cout << "no" << endl;
+	}
+	return 0;
+}
