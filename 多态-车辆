@@ -1,0 +1,85 @@
+描述
+自行车（Bicycle）和汽车（Motorcar）都是车辆（Vehicle），它们有共同的属性最大速度（maxSpeed）和重量（weight），也有各自不同的特性，比如自行车的高度（height）和汽车的座位数（seatNum）。现有车辆若干（实验时设N=2），将其输入并放入一个指针数组，每个车辆需要设置其属性。
+
+1.创建类Vehicle及其派生类；设基类为Vehicle，具有属性maxSpeed和weight，其中有一个虚函数print显示属性，由派生类负责解释具体的属性。由Vehicle派生两个类Bicycle和Motocar，Bicycle的属性为height；而Motocar的属性为seatNum。
+
+2.main中创建指针数组：main中创建一个指针数组Vehicle* pvehicle[N]，并分别构建Bicycle和Motorcar的堆对象：
+
+公共属性设定为：maxSpeed=3;weight=4;
+
+Bicycle设定height=1;
+
+Motorcar设定seatNum=2;
+
+3.分别显示堆对象属性，并释放堆对象。
+
+using namespace std;  
+#include<iostream>  
+// 在此处补充你的代码  
+class Vehicle  
+{  
+public:  
+   Vehicle() {}  
+   double maxSpeed;  
+   double weight;  
+   Vehicle(double maxSpeed, double weight) {  
+       this->maxSpeed = maxSpeed;  
+       this->weight = weight;  
+   }  
+   virtual void print() = 0;  
+};  
+
+class Bicycle : public Vehicle  
+{  
+   double height;  
+public:  
+   Bicycle(double maxSpeed, double weight, double height) : Vehicle(maxSpeed, weight) {  //要把Vehicle的类成员同步到派生类中
+       this->height = height;  
+   }  
+   void print() {  
+       cout << "maxSpeed is " << this->maxSpeed << ",weight is " << this->weight << ",height is " << height << endl;  
+   }  
+};  
+
+class Motocar : public Vehicle  
+{  
+   double seatNum;  
+public:  
+   Motocar(double maxSpeed, double weight, double seatNum) : Vehicle(maxSpeed, weight) {  
+       this->seatNum = seatNum;  
+   }  
+   void print() {  
+       cout << "maxSpeed is " << maxSpeed << ",weight is " << weight << ",seatNum is " << seatNum << endl;  
+   }  
+};  
+
+int main()  
+{  
+   int const N = 2;  
+   double maxSpeed(0), weight(0), height(0), seatNum(0);  
+   Vehicle* pvehicle[N];  
+   for (int i = 0; i < N; i++)  
+   {  
+       pvehicle[i] = NULL;  
+   }  
+
+   maxSpeed = 3;  
+   weight = 4;  
+
+   height = 1;  
+   pvehicle[0] = new Bicycle(maxSpeed, weight, height);  
+
+   seatNum = 2;  
+   pvehicle[1] = new Motocar(maxSpeed, weight, seatNum);  
+
+   for (int i = 0; i < N; i++)  
+   {  
+       if (pvehicle[i] != NULL)  
+       {  
+           pvehicle[i]->print();  
+           delete pvehicle[i];  
+       }  
+   }  
+
+   return 0;  
+}
