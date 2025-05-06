@@ -1,0 +1,41 @@
+/*哪些函数可以是虚函数
+非静态成员可以是虚函数
+构造函数不能是虚函数
+析构函数可以是虚函数*/
+//一般虚函数声明：virtual+函数类型+函数名（形参表）
+//声明只能在类定义中的函数原型声明中，不能在类外部
+//虚函数不声明为内联函数，因为对虚函数的调用需要动态绑定，对内联函数的处理是静态的
+//使用多态性动态分配内存时，析构函数用虚函数
+#include <iostream>
+using namespace std;
+class Base {
+public:
+
+	virtual ~Base();
+};
+Base::~Base() {
+	cout << "Base destructor" << endl;
+}
+class Derived : public Base {
+	int* p;
+public:
+	Derived();
+	virtual ~Derived();
+};
+Derived::Derived() {
+	p = new int(0);
+}
+Derived::~Derived() {
+	cout << "Derived destructor" << endl;
+	delete p;
+}
+int main() {
+	Base* basePtrs[10];
+	for (int i = 0;i < 10;i++) {
+		basePtrs[i] = new Derived();
+	}
+	for (int i = 0;i < 10;i++) {
+		delete basePtrs[i];
+	}
+	return 0;
+}
