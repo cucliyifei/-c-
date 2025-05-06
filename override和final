@@ -1,0 +1,29 @@
+/*override显示覆盖
+复习“覆盖要求”
+1、函数签名完全一致
+2、函数签名包括：函数名，参数列表，const
+*/
+/*显式覆盖作用：运用显示覆盖，编译器会检查派生类中声明override的函数，
+在基类中是否存在可i被覆盖的虚函数，如果不存在，就会报错*/
+//例：
+class Base {
+	vitrual void some_func(float);
+};
+class Derived : Base {
+	virtual void some_func(int)override;	//错误:Derived::some_func并没有override Base::some_func
+	virtual void some_func(float)override;	//正确
+};
+/*final和final函数*/
+/*final关键字可以用于类和虚函数*/
+/*final类：不能被继承*/
+/*final函数：不能被覆盖*/
+//例：
+class Base final {};
+class Derived : Base {};	//错误：Derived不能继承Base
+class Base {
+	virtual void some_func() final;	//正确
+};
+class Derived : Base {
+	virtual void some_func() override;	//错误：Derived::some_func不能覆盖Base::some_func
+};
+
