@@ -1,0 +1,46 @@
+//有一个交通工具类vehicle，将它作为基类派生小车类car、卡车类truck和轮船类boat，定义这些类并定义一个虚函数用来显示各类信息。
+#include <iostream>
+#include <cstdio>
+using namespace std;
+
+class vechicle {
+public:
+   virtual void drive() = 0; // 将 drive 方法声明为纯虚函数
+};
+
+class car : public vechicle {
+public:
+   void drive() override {
+       cout << "BENCHI" << endl;
+   }
+};
+
+class truck : public vechicle {
+public:
+   void drive() override {
+       cout << "KACHE" << endl;
+   }
+};
+
+class boat : public vechicle {
+public:
+   void drive() override {
+       cout << "YOUTING" << endl;
+   }
+};
+
+int main() {
+   vechicle* v;
+   car c;
+   truck t;
+   boat b;
+
+   v = &c;
+   v->drive();
+   v = &t;
+   v->drive();
+   v = &b;
+   v->drive();
+
+   return 0;
+}
