@@ -1,0 +1,65 @@
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+class Account {
+	
+public:
+	virtual void deposit(int amount) = 0; // pure virtual function
+	virtual void output() = 0; // pure virtual function
+};
+class Savings :public Account{
+public:
+	string accountNumber;
+	int balance=0;
+	void deposit(int amount)override {
+		balance += amount;
+	}
+	Savings(string accNum) {
+		accountNumber = accNum;
+	}
+	void output()override {
+		cout << accountNumber << ' ';
+		cout <<  balance << endl;
+	}
+};
+class Checking :public Account {
+public:
+	string accountNumber;
+	int balance = 0;
+	void deposit(int amount) {
+		balance += amount;
+	}
+	Checking(string accNum) {
+		accountNumber = accNum;
+	}
+	void output() {
+		cout << accountNumber << ' ';
+		cout << balance << endl;
+	}
+};
+int main() {
+	int n;
+	cin >> n;
+	vector<Account*> accounts;
+	for (int i = 0; i < n; i++) {
+		string type;
+		cin >> type;
+		string accNum;
+		int coun;
+		cin >> accNum >> coun;
+		if (type == "S") {
+			Savings* s = new Savings(accNum);
+			s->deposit(coun);
+			accounts.push_back(s);
+		}
+		else if (type == "C") {
+			Checking* c = new Checking(accNum);
+			c->deposit(coun);
+			accounts.push_back(c);
+		}
+	}
+	for (int i = 0; i < accounts.size(); i++) {
+		accounts[i]->output();
+	}
+}
