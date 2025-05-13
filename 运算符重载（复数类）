@@ -1,0 +1,77 @@
+Complex类为表示复数的类，两个成员函数分别为real和imag，包含构造析构函数和显示函数，按要求为Complex类重载以下几个运算符函数，并在主函数中进行测试。
+
+赋值=：重载为成员函数（必须）
+加号-：重载为友元函数
+前置++：重载为友元函数
+后置++：重载为友员函数
+判断相等= = :重载为友元函数
+
+#include <iostream>
+#include <cstdio>
+using namespace std;
+class Complex
+{
+private:
+int real;
+int imag;
+public:
+Complex(int r = 0, int i = 0) : real(r), imag(i) {}
+Complex(const Complex& c)
+{
+	real = c.real;
+	imag = c.imag;
+}
+void Print() const // Add 'const' to make it compatible with const objects
+{
+	cout << real << "+" << imag << "j" << endl;
+}
+Complex operator=(const Complex& c)
+{
+	if (this != &c)
+	{
+		this->real = c.real;
+		this->imag = c.imag;
+	}
+	return *this;
+}
+Complex operator-(const Complex& c)
+{
+	return Complex(real - c.real, imag - c.imag);
+}
+const Complex operator++(int)
+{
+	return Complex(real++, imag++);
+}
+const Complex& operator++()
+{
+	this->real++;
+	this->imag++;
+	return *this;
+}
+bool operator==(const Complex& c)
+{
+	return (real == c.real && imag == c.imag);
+}
+};
+int main()
+{
+Complex c1(1, 2), c2;
+c2 = c1;
+c2.Print();
+
+Complex c3(2, 3), c4(1, 2);
+Complex cc;
+(c3 - c4).Print();
+
+
+Complex c6(1, 2);
+(c6++).Print();
+
+(++c6).Print();
+
+Complex c7(1, 2), c8(2, 3), c9(1, 2);
+cout << (c7 == c8) << endl;
+cout << (c7 == c9) << endl;
+
+return 0;
+}
