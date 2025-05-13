@@ -1,0 +1,61 @@
+增加操作符，以允许人民币与double型数相乘
+输入
+2
+3
+输出
+8.22
+12.33
+
+#include <iostream>
+#include <cstdio>
+using namespace std;
+class RMB {
+int yuan;
+int jiao;
+public:
+RMB(int y = 0, int j = 0) : yuan(y), jiao(j) {}
+RMB operator+(const RMB& d) const {
+	RMB temp;
+	temp.jiao = jiao + d.jiao;
+	temp.yuan = yuan + d.yuan + temp.jiao / 100;
+	temp.jiao %= 100;
+	return temp;
+}
+RMB& operator++() {
+	jiao++;
+	if (jiao == 100) {
+		jiao = 0;
+		yuan++;
+	}
+	return *this;
+}
+friend RMB operator*(double x, const RMB& d);
+friend RMB operator*(const RMB& d, double x);
+void display() const {
+	printf("%d.%02d\n", yuan, jiao);
+}
+};
+
+RMB operator*(double x, const RMB& d) {
+int totalJiao = static_cast<int>((d.yuan * 100 + d.jiao) * x);
+return RMB(totalJiao / 100, totalJiao % 100);
+}
+
+RMB operator*(const RMB& d, double x) {
+return x * d; // Reuse the first operator* implementation
+}
+
+int main()
+{
+RMB d1(1, 60);    //注意“角”是60，50，意味着计算时要100倍来修改
+RMB d2(2, 50);
+RMB d3(0, 0);
+d3 = d1 + d2;
+++d3;
+double x, y;
+cin >> x >> y;
+RMB d4, d5;
+d4 = x * d3; d4.display();
+d5 = d3 * y; d5.display();
+return 0;
+}
