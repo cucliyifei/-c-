@@ -1,0 +1,95 @@
+/*重载Array类的增量运算：
+
+编程实现向量（Array）类，一个Array对象可以包含n个实数（n<10），试重载前置++、前置--、后置++、后置--运算，实现对Array对象的所有元素的增1、减1运算。
+
+代码需对Array类添加带参构造函数，以及输出函数show()，其中show()函数实现对Array对象所有元素依次打印功能，元素之间以空格隔开。*/
+#include<iostream>
+using namespace std;
+// 在此处补充你的代码
+class Array {
+	int n;
+	double* p;
+public:
+	Array(int n, double* P) {
+		this->n = n;
+		p = new double[n];
+		for (int i = 0; i < n; i++) {
+			p[i] = P[i];
+		}
+	}
+	~Array() {
+		delete[] p;
+	}
+	Array(const Array& A) {    //深拷贝
+		n = A.n;
+		p = new double[n];
+		for (int i = 0; i < n; i++) {
+			p[i] = A.p[i];
+		}
+	}
+	Array& operator=(const Array& A) {    //深拷贝
+		if (this != &A) {
+			delete[] p;
+			n = A.n;
+			p = new double[n];
+			for (int i = 0; i < n; i++) {
+				p[i] = A.p[i];
+			}
+		}
+		return *this;
+	}
+	Array operator++(int) {
+		// 先保存当前对象的值
+		Array temp = *this;
+		for (int i = 0; i < n; i++) {
+			p[i]++;
+		}
+		return temp;
+		// 返回保存的对象
+		
+	}
+	Array& operator++() {
+		// 前置++运算符重载
+		for (int i = 0; i < n; i++) {
+			p[i]++;
+		}
+		return *this;
+	}
+	Array operator--(int) {
+		// 先保存当前对象的值
+		Array temp = *this;
+		for (int i = 0; i < n; i++) {
+			p[i]--;
+		}
+		// 返回保存的对象
+		return temp;
+	}
+	Array& operator--() {
+		// 前置--运算符重载
+		for (int i = 0; i < n; i++) {
+			p[i]--;
+		}
+		return *this;
+	}
+	void show() const {
+		for (int i = 0; i < n; i++) {
+			cout << p[i] << " ";
+		}
+		cout << endl;
+	}
+};
+int main() {
+	int n;
+	double* P;
+	cin >> n;
+	P = new double[n];
+	for (int i = 0; i < n; i++) {
+		cin >> P[i];
+	}
+	Array A(n, P);
+	(A++).show();
+	(++A).show();
+	(--A).show();
+	(A--).show();
+
+}
